@@ -80,6 +80,9 @@ export function SettingsProvider({ children }) {
     }
     return fmt;
   }, [designs]);
+
+  const selectedFormat = formats.find(f => f.id === selectedFormatId) || formats[0] || DEFAULT_FORMAT;
+
   return (
     <SettingsContext.Provider value={{
       settings, setSettings, updateSettings, fetchSettings,
