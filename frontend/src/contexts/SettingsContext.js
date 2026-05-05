@@ -72,17 +72,14 @@ export function SettingsProvider({ children }) {
   const resolveFormat = useCallback((fmt) => {
     if (!fmt) return fmt;
     if (fmt.design_id) {
-      const design = designs.find(d => d.id === fmt.design_id);
+      const safeDesigns = Array.isArray(designs) ? designs : [];
+      const design = safeDesigns.find(d => d.id === fmt.design_id);
       if (design?.elements?.length > 0) {
         return { ...fmt, elements: design.elements, _designName: design.name };
       }
     }
     return fmt;
   }, [designs]);
-
-  const rawSelectedFormat = formats.find(f => f.id === selectedFormatId) || formats[0] || DEFAULT_FORMAT;
-  const selectedFormat = resolveFormat(rawSelectedFormat);
-
   return (
     <SettingsContext.Provider value={{
       settings, setSettings, updateSettings, fetchSettings,
