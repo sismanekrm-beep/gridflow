@@ -1,0 +1,46 @@
+/* Global styles */
+.font-display {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+}
+.font-mono-label {
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+/* No-print / Print-only utilities */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: white !important;
+  }
+  html, body, #root {
+    height: auto !important;
+    overflow: visible !important;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 0.8s linear infinite;
+}

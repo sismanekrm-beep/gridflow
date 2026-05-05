@@ -1,0 +1,26 @@
+[
+  {
+    "content": "App.js: ProtectedRoute kaldır - misafir erişimi",
+    "status": "in_progress"
+  },
+  {
+    "content": "AuthContext: Guest print sayıcı + limit",
+    "status": "pending"
+  },
+  {
+    "content": "GuestLimitModal component",
+    "status": "pending"
+  },
+  {
+    "content": "LabelPrep: Print limit logic",
+    "status": "pending"
+  },
+  {
+    "content": "Login/Register: Social auth butonları + avantajlar",
+    "status": "pending"
+  },
+  {
+    "content": "AppShell: Misafir header",
+    "status": "pending"
+  }
+]
