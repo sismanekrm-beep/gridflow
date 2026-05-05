@@ -126,13 +126,15 @@ export default function LabelPrep() {
   // Build a unified list of available designs:
   // 1) catalog designs (db.designs)
   // 2) TANEX formats that have a design assigned (resolved elements)
-  const resolvedFormatsWithDesign = formats
+  const safeFormats = Array.isArray(formats) ? formats : [];
+  const safeDesigns = Array.isArray(designs) ? designs : [];
+  const resolvedFormatsWithDesign = safeFormats
     .map(f => resolveFormat(f))
     .filter(f => f.elements?.length > 0)
     .map(f => ({ id: `fmt:${f.id}`, name: f._designName ? `${f._designName} (${f.name})` : f.name, elements: f.elements, background: f.background, border_radius: f.border_radius }));
   const allDesignOptions = [
-    ...designs.map(d => ({ id: d.id, name: d.name, elements: d.elements, background: d.background, border_radius: d.border_radius })),
-    ...resolvedFormatsWithDesign.filter(rf => !designs.some(d => `fmt:${rf.id}` === rf.id)),
+    ...safeDesigns.map(d => ({ id: d.id, name: d.name, elements: d.elements, background: d.background, border_radius: d.border_radius })),
+    ...resolvedFormatsWithDesign.filter(rf => !safeDesigns.some(d => `fmt:${rf.id}` === rf.id)),
   ];
 
   const labelDesign = allDesignOptions.find(d => d.id === selectedLabelFormat?.designId) || null;

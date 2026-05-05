@@ -49,7 +49,7 @@ export function SettingsProvider({ children }) {
   const fetchDesigns = useCallback(async () => {
     try {
       const res = await axios.get(`${BACKEND_URL}/api/designs`);
-      setDesigns(res.data);
+      setDesigns(Array.isArray(res.data) ? res.data : []);
     } catch {}
   }, []);
 
