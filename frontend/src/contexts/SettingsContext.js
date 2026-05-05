@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 
 const SettingsContext = createContext(null);
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
@@ -23,6 +24,7 @@ const DEFAULT_FORMAT = {
 };
 
 export function SettingsProvider({ children }) {
+  const { token } = useAuth();
   const [settings, setSettings]           = useState(DEFAULT_SETTINGS);
   const [formats, setFormats]             = useState([DEFAULT_FORMAT]);
   const [designs, setDesigns]             = useState([]);  // catalog designs
@@ -54,10 +56,17 @@ export function SettingsProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    fetchSettings();
-    fetchFormats();
-    fetchDesigns();
-  }, [fetchSettings, fetchFormats, fetchDesigns]);
+    if (token) {
+      fetchSettings();
+      fetchFormats();
+      fetchDesigns();
+    } else {
+      setSettings(DEFAULT_SETTINGS);
+      setFormats([DEFAULT_FORMAT]);
+      setDesigns([]);
+      setLoaded(true);
+    }
+  }, [token, fetchSettings, fetchFormats, fetchDesigns]);
 
   const setSelectedFormatId = useCallback((id) => {
     _setSelFmtId(id);
