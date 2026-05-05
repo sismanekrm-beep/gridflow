@@ -1192,10 +1192,12 @@ async def root():
 app.include_router(api_router)
 app.mount("/api/static", StaticFiles(directory=str(ROOT_DIR / "static")), name="static")
 
+_cors_origins = [o.strip() for o in os.environ.get('CORS_ORIGINS', '*').split(',') if o.strip()]
+_allow_credentials = '*' not in _cors_origins
 app.add_middleware(
     CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_credentials=_allow_credentials,
+    allow_origins=_cors_origins if _allow_credentials else ["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
