@@ -42,7 +42,7 @@ export function SettingsProvider({ children }) {
   const fetchFormats = useCallback(async () => {
     try {
       const res = await axios.get(`${BACKEND_URL}/api/label-formats`);
-      setFormats(res.data);
+      setFormats(Array.isArray(res.data) ? res.data : [DEFAULT_FORMAT]);
     } catch {}
   }, []);
 
@@ -81,7 +81,8 @@ export function SettingsProvider({ children }) {
     return fmt;
   }, [designs]);
 
-  const selectedFormat = formats.find(f => f.id === selectedFormatId) || formats[0] || DEFAULT_FORMAT;
+  const safeFormats = Array.isArray(formats) ? formats : [DEFAULT_FORMAT];
+  const selectedFormat = safeFormats.find(f => f.id === selectedFormatId) || safeFormats[0] || DEFAULT_FORMAT;
 
   return (
     <SettingsContext.Provider value={{
