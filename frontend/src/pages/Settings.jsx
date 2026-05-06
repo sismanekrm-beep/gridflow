@@ -9,6 +9,7 @@ import { useAppSettings } from '../contexts/SettingsContext';
 import { useNavigate } from 'react-router-dom';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
+const imgUrl = (url) => !url ? null : url.startsWith('http') ? url : `${BACKEND_URL}${url}`;
 const PRIMARY = '#0B4F8A';
 const BORDER = '#E2E8F0';
 const MUTED = '#64748B';
@@ -352,7 +353,7 @@ export default function Settings() {
             <div style={{ display:'flex', alignItems:'flex-start', gap:'16px' }}>
               <div style={S.logoBox}>
                 {settings.brand_logo_url
-                  ? <img src={`${BACKEND_URL}${settings.brand_logo_url}`} alt="logo" style={{ maxWidth:'100%', maxHeight:'100%', objectFit:'contain', padding:'4px' }} />
+                  ? <img src={{imgUrl(settings.brand_logo_url)}} alt="logo" style={{ maxWidth:'100%', maxHeight:'100%', objectFit:'contain', padding:'4px' }} />
                   : <Tag size={22} color="#94A3B8" />}
               </div>
               <div>
@@ -414,7 +415,7 @@ export default function Settings() {
             <div style={{ display:'flex', alignItems:'center', gap:'12px', padding:'10px 12px', backgroundColor:'#F8FAFC', border:`1px solid ${BORDER}`, borderRadius:'8px' }}>
               <div style={{ width:`${Math.min((settings.brand_logo_w||20)*1.5, 120)}px`, height:`${Math.min((settings.brand_logo_h||12)*1.5, 60)}px`, flexShrink:0, border:`1.5px dashed ${BORDER}`, borderRadius:'6px', display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden', backgroundColor:'#fff', transition:'all 0.2s' }}>
                 {settings.brand_logo_url
-                  ? <img src={`${BACKEND_URL}${settings.brand_logo_url}`} alt="logo" style={{ maxWidth:'100%', maxHeight:'100%', objectFit:'contain' }} />
+                  ? <img src={{imgUrl(settings.brand_logo_url)}} alt="logo" style={{ maxWidth:'100%', maxHeight:'100%', objectFit:'contain' }} />
                   : <span style={{ fontSize:'10px', color:'#94A3B8', fontWeight:600 }}>{settings.brand_name || 'MARKA'}</span>}
               </div>
               <div>

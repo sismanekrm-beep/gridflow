@@ -1,6 +1,7 @@
 import React from 'react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
+const imgUrl = (url) => !url ? null : url.startsWith('http') ? url : `${BACKEND_URL}${url}`;
 
 // ── Quality colors ────────────────────────────────────────────────────
 const QUALITY_COLORS = {
@@ -62,13 +63,9 @@ function CustomRender({ product, settings, format }) {
   const R = format.border_radius ?? 4;
   const bg = format.background || '#FFFFFF';
 
-  const brandLogoUrl = settings?.brand_logo_url ? `${BACKEND_URL}${settings.brand_logo_url}` : null;
+  const brandLogoUrl = imgUrl(settings?.brand_logo_url);
   const brandName    = settings?.brand_name || 'Marka';
-  const prodImgUrl   = product?.image_url
-    ? `${BACKEND_URL}${product.image_url}`
-    : product?.category_image_url
-    ? `${BACKEND_URL}${product.category_image_url}`
-    : null;
+  const prodImgUrl   = imgUrl(product?.image_url) || imgUrl(product?.category_image_url);
 
   const qualityColor = getQualityColor(product?.quality);
 
@@ -234,13 +231,9 @@ function FixedRender({ product, settings, format }) {
   const R  = format.border_radius ?? 4.0;
   const scale = Math.min(H / 34, W / 64);
 
-  const brandLogoUrl = settings?.brand_logo_url ? `${BACKEND_URL}${settings.brand_logo_url}` : null;
+  const brandLogoUrl = imgUrl(settings?.brand_logo_url);
   const brandName    = settings?.brand_name || 'Marka';
-  const prodImgUrl   = product?.image_url
-    ? `${BACKEND_URL}${product.image_url}`
-    : product?.category_image_url
-    ? `${BACKEND_URL}${product.category_image_url}`
-    : null;
+  const prodImgUrl   = imgUrl(product?.image_url) || imgUrl(product?.category_image_url);
   const qualityColor = getQualityColor(product?.quality);
 
   const fs = (base, min = 4) => `${Math.max(min, base * scale).toFixed(1)}pt`;

@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os, uuid, shutil, logging, io
+import cloudinary
+import cloudinary.uploader
 from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import Optional, List
@@ -26,6 +28,14 @@ db = client[os.environ['DB_NAME']]
 
 UPLOAD_DIR = ROOT_DIR / "static" / "uploads"
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+# ─── Cloudinary Config ────────────────────────────────────────────────────────
+_cld_name   = os.environ.get('CLOUDINARY_CLOUD_NAME')
+_cld_key    = os.environ.get('CLOUDINARY_API_KEY')
+_cld_secret = os.environ.get('CLOUDINARY_API_SECRET')
+USE_CLOUDINARY = bool(_cld_name and _cld_key and _cld_secret)
+if USE_CLOUDINARY:
+    cloudinary.config(cloud_name=_cld_name, api_key=_cld_key, api_secret=_cld_secret, secure=True)
 
 # ─── Auth Config ──────────────────────────────────────────────────────────────
 SECRET_KEY       = os.environ.get('JWT_SECRET_KEY', 'etiket-sistemi-secret-key-2025-change-in-prod')
@@ -1135,10 +1145,19 @@ async def delete_label_format(fmt_id: str):
 async def upload_file(file: UploadFile = File(...)):
     if file.content_type not in ["image/jpeg", "image/png", "image/gif", "image/webp"]:
         raise HTTPException(400, "Sadece resim dosyaları desteklenir (JPG, PNG, GIF, WebP)")
+    contents = await file.read()
+    if USE_CLOUDINARY:
+        result = cloudinary.uploader.upload(
+            contents,
+            folder="gridlabel",
+            resource_type="image",
+        )
+        return {"url": result["secure_url"]}
+    # Fallback: local storage
     ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else "jpg"
     fname = f"{uuid.uuid4()}.{ext}"
     with open(UPLOAD_DIR / fname, "wb") as buf:
-        shutil.copyfileobj(file.file, buf)
+        buf.write(contents)
     return {"url": f"/api/static/uploads/{fname}"}
 
 # ─── Settings ───────────────────────────────────────────────────────
