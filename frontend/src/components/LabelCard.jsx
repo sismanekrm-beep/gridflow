@@ -289,7 +289,7 @@ function FixedRender({ product, settings, format }) {
           <span style={{ fontSize: fs(5.5,4), fontWeight: 700, color: '#4B5563', textTransform: 'uppercase', letterSpacing: '0.06em', lineHeight: 1, writingMode: 'vertical-rl', textOrientation: 'mixed', transform: 'rotate(180deg)' }}>ÜRÜN</span>
         </div>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: `${0.03*H}mm ${0.03*W}mm`, overflow: 'hidden' }}>
-          <span style={{ fontSize: fs(7.5,5), fontWeight: 700, color: '#0F172A', lineHeight: 1.2, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', wordBreak: 'break-word', textAlign: 'center' }}>{product?.name || '—'}</span>
+          <span style={{ fontSize: fs(7.5,5), fontWeight: 700, color: '#0F172A', lineHeight: 1.2, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', wordBreak: 'break-word', textAlign: 'center' }}>{product?.description || product?.name || '—'}</span>
         </div>
       </div>
     </div>

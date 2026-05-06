@@ -437,7 +437,7 @@ export default function LabelPrep() {
                         <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '11px', fontWeight: 700, color: PRIMARY }}>{s.code}</span>
                         {s.measurement && <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '11px', color: MUTED }}>({s.measurement})</span>}
                       </div>
-                      <p style={{ fontSize: '11px', color: MUTED, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.name}</p>
+                      <p style={{ fontSize: '11px', color: MUTED, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{s.description || s.name}</p>
                     </div>
                   </button>
                 ))}
@@ -482,7 +482,7 @@ export default function LabelPrep() {
                     <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '11px', fontWeight: 700, color: PRIMARY }}>{item.product.code}</span>
                     {item.product.measurement && <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '10px', color: MUTED }}>({item.product.measurement})</span>}
                   </div>
-                  <p style={{ fontSize: '11px', color: MUTED, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.product.name}</p>
+                  <p style={{ fontSize: '11px', color: MUTED, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.product.description || item.product.name}</p>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '3px', flexShrink: 0 }}>
                   <button style={{ width: '24px', height: '24px', border: `1px solid ${BORDER}`, borderRadius: '5px', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: MUTED }} onClick={() => updateQty(idx, item.qty - 1)}>
