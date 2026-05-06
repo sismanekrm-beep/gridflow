@@ -14,7 +14,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const SCALE = 8;         // px per mm (base canvas scale)
 const SNAP_ANGLE = 12;   // degrees — within this of H/V → snap to axis
 
-const DEMO = { code: 'DIN965-M4X35', name: 'Y.H.B METRİK VİDA', measurement: '4X35', standard_code: 'DIN965', quality: 'A2', default_qty: '100', barcode: '1234567890', custom_fields: {} };
+const DEMO = { code: 'DIN965-M4X35', name: 'Y.H.B METRİK VİDA', description: 'Y.H.B Metrik Vida', measurement: '4X35', standard_code: 'DIN965', quality: 'A2', default_qty: '100', barcode: '1234567890', custom_fields: {} };
 const VARS = [
   { val: '{{code}}' }, { val: '{{measurement}}' },
   { val: '{{quality}}' }, { val: '{{description}}' },
