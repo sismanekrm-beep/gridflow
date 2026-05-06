@@ -33,33 +33,36 @@ export function SettingsProvider({ children }) {
   );
   const [loaded, setLoaded] = useState(false);
 
-  const fetchSettings = useCallback(async () => {
+  const fetchSettings = useCallback(async (authToken) => {
+    const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
     try {
-      const res = await axios.get(`${BACKEND_URL}/api/settings`);
+      const res = await axios.get(`${BACKEND_URL}/api/settings`, { headers });
       setSettings({ ...DEFAULT_SETTINGS, ...res.data });
       setLoaded(true);
     } catch { setLoaded(true); }
   }, []);
 
-  const fetchFormats = useCallback(async () => {
+  const fetchFormats = useCallback(async (authToken) => {
+    const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
     try {
-      const res = await axios.get(`${BACKEND_URL}/api/label-formats`);
+      const res = await axios.get(`${BACKEND_URL}/api/label-formats`, { headers });
       setFormats(Array.isArray(res.data) ? res.data : [DEFAULT_FORMAT]);
     } catch {}
   }, []);
 
-  const fetchDesigns = useCallback(async () => {
+  const fetchDesigns = useCallback(async (authToken) => {
+    const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
     try {
-      const res = await axios.get(`${BACKEND_URL}/api/designs`);
+      const res = await axios.get(`${BACKEND_URL}/api/designs`, { headers });
       setDesigns(Array.isArray(res.data) ? res.data : []);
     } catch {}
   }, []);
 
   useEffect(() => {
     if (token) {
-      fetchSettings();
-      fetchFormats();
-      fetchDesigns();
+      fetchSettings(token);
+      fetchFormats(token);
+      fetchDesigns(token);
     } else {
       setSettings(DEFAULT_SETTINGS);
       setFormats([DEFAULT_FORMAT]);
