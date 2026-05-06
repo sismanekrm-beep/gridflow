@@ -42,6 +42,8 @@ export default function LabelPrep() {
   const labelPrintRef = useRef(null);
   const inputRef = useRef(null);
   const location = useLocation();
+  const hasLocationState = useRef(false);
+  const productRefreshDone = useRef(false);
 
   const { settings, formats, designs, resolveFormat, selectedFormat, selectedFormatId, setSelectedFormatId } = useAppSettings();
 
@@ -189,10 +191,10 @@ export default function LabelPrep() {
   useEffect(() => {
     const state = location.state;
     if (state?.labelItems?.length > 0) {
-      // Pre-filled from Products page selection
+      hasLocationState.current = true;
       setItems(state.labelItems);
     } else if (state?.codes?.length > 0) {
-      // Multiple codes passed
+      hasLocationState.current = true;
       Promise.all(
         state.codes.map(code =>
           axios.get(`${BACKEND_URL}/api/products/code?code=${encodeURIComponent(code.trim().toUpperCase())}`)
@@ -203,12 +205,33 @@ export default function LabelPrep() {
         if (valid.length > 0) setItems(valid);
       });
     } else if (state?.code) {
+      hasLocationState.current = true;
       addProductByCode(state.code);
     } else {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Re-fetch product data from API once after auth to refresh stale localStorage cache.
+  // Without this, standard_code (and other fields updated after first add) stay blank.
+  useEffect(() => {
+    if (!isAuthenticated || productRefreshDone.current || hasLocationState.current) return;
+    productRefreshDone.current = true;
+    let savedItems;
+    try { savedItems = JSON.parse(localStorage.getItem('label_prep_items') || '[]'); }
+    catch { return; }
+    if (!savedItems.length) return;
+    Promise.all(
+      savedItems.map(item =>
+        item.product?.code
+          ? axios.get(`${BACKEND_URL}/api/products/code?code=${encodeURIComponent(item.product.code)}`)
+              .then(r => ({ ...item, product: r.data }))
+              .catch(() => item)
+          : Promise.resolve(item)
+      )
+    ).then(refreshed => setItems(refreshed));
+  }, [isAuthenticated]);
 
   const addProductByCode = useCallback(async (code) => {
     if (!code?.trim()) return;
