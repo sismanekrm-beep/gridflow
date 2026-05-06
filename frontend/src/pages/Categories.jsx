@@ -188,7 +188,7 @@ export default function Categories() {
               {/* Thumbnail */}
               <div style={{ height: '130px', backgroundColor: '#F8FAFC', display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: `1px solid ${BORDER}`, position: 'relative', overflow: 'hidden' }}>
                 {cat.image_url
-                  ? <img src={{imgUrl(cat.image_url)}} alt={cat.name} style={{ maxWidth: '85%', maxHeight: '85%', objectFit: 'contain' }} />
+                  ? <img src={imgUrl(cat.image_url)} alt={cat.name} style={{ maxWidth: '85%', maxHeight: '85%', objectFit: 'contain' }} />
                   : <div style={{ textAlign: 'center' }}><FolderOpen size={30} color='#CBD5E1' style={{ display: 'block', margin: '0 auto 4px' }} /><span style={{ fontSize: '10px', color: '#94A3B8' }}>Resim yok</span></div>}
                 <div style={{ position: 'absolute', top: '8px', right: '8px', backgroundColor: PRIMARY, color: '#fff', fontSize: '11px', fontWeight: 700, padding: '2px 8px', borderRadius: '20px' }}>
                   {cat.product_count || 0} ürün
@@ -252,7 +252,7 @@ export default function Categories() {
                   <div onClick={() => fileRef.current?.click()} style={{ width: '80px', height: '70px', border: form.image_url ? `1px solid ${BORDER}` : '2px dashed #3B82F6', borderRadius: '10px', backgroundColor: form.image_url ? '#F8FAFC' : '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
                     {form.image_url ? (
                       <>
-                        <img src={{imgUrl(form.image_url)}} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+                        <img src={imgUrl(form.image_url)} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                         <button onClick={e => { e.stopPropagation(); setForm(f => ({ ...f, image_url: null })); }} style={{ position: 'absolute', top: '2px', right: '2px', width: '16px', height: '16px', backgroundColor: '#DC2626', color: '#fff', borderRadius: '50%', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <X size={9} />
                         </button>

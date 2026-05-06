@@ -412,7 +412,7 @@ export default function Products() {
                       {/* Image */}
                       <td style={{ padding: '8px 12px' }}>
                         {(p.image_url || p.category_image_url) ? (
-                          <img src={{imgUrl(p.image_url || p.category_image_url)}} alt="" style={{ width: '34px', height: '34px', objectFit: 'contain', borderRadius: '6px', border: `1px solid ${BORDER}`, backgroundColor: '#F8FAFC' }} />
+                          <img src={imgUrl(p.image_url || p.category_image_url)} alt="" style={{ width: '34px', height: '34px', objectFit: 'contain', borderRadius: '6px', border: `1px solid ${BORDER}`, backgroundColor: '#F8FAFC' }} />
                         ) : (
                           <div style={{ width: '34px', height: '34px', borderRadius: '6px', border: `1px solid ${BORDER}`, backgroundColor: '#F8FAFC', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Package size={14} color='#CBD5E1' />
@@ -532,7 +532,7 @@ export default function Products() {
                   {selectedCat && (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '8px', padding: '8px 10px', backgroundColor: '#F0FDF4', borderRadius: '8px', border: '1px solid #BBF7D0' }}>
                       {selectedCat.image_url
-                        ? <img src={{imgUrl(selectedCat.image_url)}} alt="" style={{ width: '32px', height: '32px', objectFit: 'contain', borderRadius: '6px', border: `1px solid ${BORDER}` }} />
+                        ? <img src={imgUrl(selectedCat.image_url)} alt="" style={{ width: '32px', height: '32px', objectFit: 'contain', borderRadius: '6px', border: `1px solid ${BORDER}` }} />
                         : <div style={{ width: '32px', height: '32px', borderRadius: '6px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FolderOpen size={14} color='#94A3B8' /></div>}
                       <div>
                         <div style={{ fontSize: '13px', fontWeight: 600, color: '#166534' }}>{selectedCat.name}</div>

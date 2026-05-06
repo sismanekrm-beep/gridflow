@@ -431,7 +431,7 @@ export default function LabelPrep() {
                     onMouseEnter={e => e.currentTarget.style.backgroundColor = '#F8FAFC'}
                     onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
-                    {s.image_url && <img src={{imgUrl(s.image_url)}} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain', borderRadius: '4px', flexShrink: 0 }} />}
+                    {s.image_url && <img src={imgUrl(s.image_url)} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain', borderRadius: '4px', flexShrink: 0 }} />}
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '11px', fontWeight: 700, color: PRIMARY }}>{s.code}</span>
@@ -471,7 +471,7 @@ export default function LabelPrep() {
             items.map((item, idx) => (
               <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 10px', borderRadius: '10px', border: `1px solid ${BORDER}`, marginBottom: '6px', backgroundColor: '#FFFFFF' }}>
                 {item.product.image_url || item.product.category_image_url ? (
-                  <img src={{imgUrl(item.product.image_url || item.product.category_image_url)}} alt="" style={{ width: '30px', height: '30px', objectFit: 'contain', borderRadius: '6px', flexShrink: 0 }} />
+                  <img src={imgUrl(item.product.image_url || item.product.category_image_url)} alt="" style={{ width: '30px', height: '30px', objectFit: 'contain', borderRadius: '6px', flexShrink: 0 }} />
                 ) : (
                   <div style={{ width: '30px', height: '30px', borderRadius: '6px', backgroundColor: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Tag size={12} color='#94A3B8' />
