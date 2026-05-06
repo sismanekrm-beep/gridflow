@@ -644,7 +644,7 @@ async def get_products(query: str = "", page: int = 1, limit: int = 20, category
     await enrich_products_with_category(items)
     return {"products": items, "total": total, "page": page, "pages": max(1, (total + limit - 1) // limit)}
 
-@api_router.get("/products/code/{code}")
+@api_router.get("/products/code")
 async def get_product_by_code(code: str, current_user = Depends(get_current_user)):
     p = await db.products.find_one({"code": {"$regex": f"^{code}$", "$options": "i"}, "user_id": current_user["id"]}, {"_id": 0})
     if not p:

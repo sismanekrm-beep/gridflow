@@ -164,7 +164,7 @@ export default function Products() {
     try {
       const results = await Promise.all(
         selectedItems.map(item =>
-          axios.get(`${BACKEND_URL}/api/products/code/${encodeURIComponent(item.code)}`)
+          axios.get(`${BACKEND_URL}/api/products/code?code=${encodeURIComponent(item.code)}`)
             .then(r => r.data).catch(() => null)
         )
       );

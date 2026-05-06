@@ -194,7 +194,7 @@ export default function LabelPrep() {
       // Multiple codes passed
       Promise.all(
         state.codes.map(code =>
-          axios.get(`${BACKEND_URL}/api/products/code/${encodeURIComponent(code.trim().toUpperCase())}`)
+          axios.get(`${BACKEND_URL}/api/products/code?code=${encodeURIComponent(code.trim().toUpperCase())}`)
             .then(r => r.data).catch(() => null)
         )
       ).then(products => {
@@ -214,7 +214,7 @@ export default function LabelPrep() {
     const trimmed = code.trim().toUpperCase();
     setLoading(true);
     try {
-      const res = await axios.get(`${BACKEND_URL}/api/products/code/${encodeURIComponent(trimmed)}`);
+      const res = await axios.get(`${BACKEND_URL}/api/products/code?code=${encodeURIComponent(trimmed)}`);
       const product = res.data;
       setItems((prev) => {
         const idx = prev.findIndex((i) => i.product.code.toUpperCase() === product.code.toUpperCase());
