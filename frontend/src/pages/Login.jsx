@@ -92,9 +92,9 @@ export default function Login() {
     <div style={{ minHeight: '100vh', backgroundColor: '#F0F7FF', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', fontFamily: "'Inter','Arial',sans-serif" }}>
       <div style={{ width: '100%', maxWidth: '420px' }}>
         {/* Logo */}
-        <div style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '18px 32px', boxShadow: '0 4px 24px rgba(11,79,138,0.08)', border: '1px solid #E2E8F0', textAlign: 'center', marginBottom: '12px' }}>
-          <img src="/logo.png" alt="GridFlow" style={{ height: '80px', objectFit: 'contain' }} />
-          <p style={{ fontSize: '13px', color: '#64748B', margin: '8px 0 0' }}>Etiket Yönetim Platformu</p>
+        <div style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '14px 32px', boxShadow: '0 4px 24px rgba(11,79,138,0.08)', border: '1px solid #E2E8F0', textAlign: 'center', marginBottom: '12px' }}>
+          <img src="/logo.png" alt="GridFlow" style={{ height: '44px', objectFit: 'contain' }} />
+          <p style={{ fontSize: '13px', color: '#64748B', margin: '6px 0 0' }}>Etiket Yönetim Platformu</p>
         </div>
 
         <div style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '28px 32px', boxShadow: '0 4px 24px rgba(11,79,138,0.08)', border: '1px solid #E2E8F0' }}>
