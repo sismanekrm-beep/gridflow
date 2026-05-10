@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Tag, Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 const PRIMARY = '#0B4F8A';
@@ -116,7 +116,7 @@ export default function Register() {
 
       {/* Benefits panel (left, desktop) */}
       <div style={{ width: '280px', flexShrink: 0, paddingTop: '80px', display: 'none' }} className="benefits-panel">
-        <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0F172A', marginBottom: '16px' }}>Neden GridLabel?</h3>
+        <h3 style={{ fontSize: '16px', fontWeight: 700, color: '#0F172A', marginBottom: '16px' }}>Neden GridFlow?</h3>
         {BENEFITS.map(b => (
           <div key={b.text} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '12px' }}>
             <span style={{ fontSize: '18px' }}>{b.icon}</span>
@@ -129,10 +129,7 @@ export default function Register() {
       <div style={{ width: '100%', maxWidth: '440px' }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '13px', backgroundColor: PRIMARY, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 10px' }}>
-            <Tag size={23} color='white' />
-          </div>
-          <h1 style={{ fontSize: '22px', fontWeight: 800, color: '#0F172A', margin: 0, fontFamily: "'Space Grotesk','Inter',sans-serif" }}>GridLabel</h1>
+          <img src="/logo.png" alt="GridFlow" style={{ height: '52px', objectFit: 'contain' }} />
         </div>
 
         <div style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '26px 28px', boxShadow: '0 4px 24px rgba(11,79,138,0.08)', border: '1px solid #E2E8F0' }}>

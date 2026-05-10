@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Tag, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 const PRIMARY = '#0B4F8A';
@@ -93,11 +93,8 @@ export default function Login() {
       <div style={{ width: '100%', maxWidth: '420px' }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
-          <div style={{ width: '52px', height: '52px', borderRadius: '14px', backgroundColor: PRIMARY, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
-            <Tag size={26} color='white' />
-          </div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#0F172A', margin: 0, fontFamily: "'Space Grotesk','Inter',sans-serif" }}>GridLabel</h1>
-          <p style={{ fontSize: '13px', color: '#64748B', marginTop: '4px' }}>TANEX Etiket Yönetim Platformu</p>
+          <img src="/logo.png" alt="GridFlow" style={{ height: '56px', objectFit: 'contain' }} />
+          <p style={{ fontSize: '13px', color: '#64748B', marginTop: '10px' }}>Etiket Yönetim Platformu</p>
         </div>
 
         <div style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '28px 32px', boxShadow: '0 4px 24px rgba(11,79,138,0.08)', border: '1px solid #E2E8F0' }}>
@@ -163,7 +160,7 @@ export default function Login() {
         </p>
 
         <p style={{ textAlign: 'center', fontSize: '12px', color: '#94A3B8', marginTop: '12px' }}>
-          © 2025 GridLabel • Tüm hakları saklıdır
+          © 2025 GridFlow • Tüm hakları saklıdır
         </p>
       </div>
     </div>
