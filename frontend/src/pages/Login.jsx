@@ -93,7 +93,7 @@ export default function Login() {
       <div style={{ width: '100%', maxWidth: '420px' }}>
         {/* Logo */}
         <div style={{ backgroundColor: '#fff', borderRadius: '16px', padding: '14px 32px', boxShadow: '0 4px 24px rgba(11,79,138,0.08)', border: '1px solid #E2E8F0', textAlign: 'center', marginBottom: '12px' }}>
-          <img src="/logo.png" alt="GridFlow" style={{ height: '44px', objectFit: 'contain' }} />
+          <img src="/logo.png" alt="GridFlow" style={{ width: '100%', height: 'auto', display: 'block' }} />
           <p style={{ fontSize: '13px', color: '#64748B', margin: '6px 0 0' }}>Etiket Yönetim Platformu</p>
         </div>
 
