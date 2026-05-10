@@ -113,8 +113,8 @@ export default function AppShell() {
   const navigate = useNavigate();
 
   const logoSection = (
-    <div style={{ display: 'flex', alignItems: 'center', padding: '14px 16px', borderBottom: `1px solid ${BORDER}`, flexShrink: 0 }}>
-      <img src="/logo.png" alt="GridFlow" style={{ height: '48px', objectFit: 'contain', maxWidth: '100%' }} />
+    <div style={{ padding: '10px 16px', borderBottom: `1px solid ${BORDER}`, flexShrink: 0 }}>
+      <img src="/logo.png" alt="GridFlow" style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'contain' }} />
     </div>
   );
 
@@ -135,7 +135,7 @@ export default function AppShell() {
       {/* Mobile drawer */}
       <aside className="no-print" style={{ position: 'fixed', top: 0, left: 0, bottom: 0, zIndex: 50, width: `${SIDEBAR_W}px`, display: 'flex', flexDirection: 'column', backgroundColor: CARD_BG, borderRight: `1px solid ${BORDER}`, transform: mobileOpen ? 'translateX(0)' : `translateX(-${SIDEBAR_W + 20}px)`, transition: 'transform 0.2s ease', boxShadow: '4px 0 20px rgba(0,0,0,0.15)' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderBottom: `1px solid ${BORDER}`, flexShrink: 0 }}>
-          <img src="/logo.png" alt="GridFlow" style={{ height: '48px', objectFit: 'contain', maxWidth: '180px' }} />
+          <img src="/logo.png" alt="GridFlow" style={{ width: '100%', maxWidth: '180px', height: 'auto', display: 'block', objectFit: 'contain' }} />
           <button onClick={() => setMobileOpen(false)} style={{ padding: '6px', borderRadius: '6px', background: 'none', border: 'none', cursor: 'pointer', color: MUTED, display: 'flex' }}>
             <X size={16} />
           </button>
