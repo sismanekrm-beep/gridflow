@@ -119,11 +119,12 @@ function CustomRender({ product, settings, format }) {
             style.transform = 'rotate(180deg)';
             style.justifyContent = 'center';
           }
-          if (el.isQualityBar && !matchRule) {
+          const isQualityEl = el.isQualityBar || el.value?.includes('{{quality}}');
+          if (isQualityEl && !matchRule) {
             elStyle.backgroundColor = qualityColor.bg;
             style.color = qualityColor.text;
           } else if (matchRule) {
-            elStyle.backgroundColor = matchRule.bgColor;
+            elStyle.backgroundColor = matchRule.bgColor || (isQualityEl ? qualityColor.bg : el.bg || 'transparent');
           } else {
             elStyle.backgroundColor = el.bg || 'transparent';
           }
