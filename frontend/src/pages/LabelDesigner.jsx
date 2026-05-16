@@ -9,6 +9,7 @@ import {
   Sparkles, Shuffle, AlignCenter, X as XIcon
 } from 'lucide-react';
 import { useAppSettings } from '../contexts/SettingsContext';
+import { getQualityColor } from '../components/LabelCard';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const SCALE = 8;         // px per mm (base canvas scale)
@@ -1127,11 +1128,13 @@ export default function LabelDesigner() {
                   ? (resolve(el.value) || (el.fieldId ? (DEMO.custom_fields?.[el.fieldId] || '') : ''))
                   : '';
                 const mr = el.type==='text' ? (el.colorRules||[]).find(r=>r.value&&rv.trim().toLowerCase()===r.value.trim().toLowerCase()) : null;
-                const elBg = mr ? mr.bgColor : (el.isQualityBar ? '#E5E7EB' : (el.bg||'transparent'));
+                const isQualityEl = el.isQualityBar || el.value?.includes('{{quality}}');
+                const qualBg = isQualityEl ? getQualityColor(rv).bg : (el.bg || 'transparent');
+                const elBg = mr ? (mr.bgColor || qualBg) : qualBg;
                 return (
                   <div key={el.id} style={{position:'absolute',left:`${el.x*SCALE}px`,top:`${el.y*SCALE}px`,width:`${el.width*SCALE}px`,height:`${el.height*SCALE}px`,cursor:tool==='select'?'move':'default',boxSizing:'border-box',outline:isSel?'2px solid #3B82F6':'1px dashed rgba(148,163,184,0.4)',overflow:'hidden',backgroundColor:elBg,zIndex:isSel?100:2}}
                     onMouseDown={e=>{if(tool!=='select')return;setSelectedId(el.id);startDrag(e,el);}}>
-                    {el.type==='text'&&<span style={{display:'flex',alignItems:'center',justifyContent:el.align==='center'?'center':el.align==='right'?'flex-end':'flex-start',width:'100%',height:'100%',fontSize:`${el.fontSize*SCALE/3.78}px`,fontWeight:el.fontWeight||'400',fontStyle:el.italic?'italic':'normal',color:mr?mr.textColor:(el.color||'#000'),padding:`${(el.padding||0.5)*SCALE}px`,boxSizing:'border-box',lineHeight:1.2,overflow:'hidden',writingMode:el.vertical?'vertical-rl':'horizontal-tb',transform:el.vertical?'rotate(180deg)':'none',textAlign:el.align||'left',fontFamily:el.fontFamily||settings.label_font_family||"'Inter','Arial',sans-serif"}}>{rv}</span>}
+                    {el.type==='text'&&<span style={{display:'flex',alignItems:'center',justifyContent:el.align==='center'?'center':el.align==='right'?'flex-end':'flex-start',width:'100%',height:'100%',fontSize:`${el.fontSize*SCALE/3.78}px`,fontWeight:el.fontWeight||'400',fontStyle:el.italic?'italic':'normal',color:mr?(mr.textColor||getQualityColor(rv).text):(isQualityEl?getQualityColor(rv).text:(el.color||'#000')),padding:`${(el.padding||0.5)*SCALE}px`,boxSizing:'border-box',lineHeight:1.2,overflow:'hidden',writingMode:el.vertical?'vertical-rl':'horizontal-tb',transform:el.vertical?'rotate(180deg)':'none',textAlign:el.align||'left',fontFamily:el.fontFamily||settings.label_font_family||"'Inter','Arial',sans-serif"}}>{rv}</span>}
                     {el.type==='image'&&<div style={{width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:'3px',backgroundColor:el.bg||'#F3F4F6',fontSize:`${7*SCALE/3.78}px`,color:'#64748B',fontWeight:600}}>
                       {el.imageType==='brand'?<><Tag size={SCALE*1.5} color='#94A3B8'/><span>MARKA</span></>:<><Image size={SCALE*1.5} color='#94A3B8'/><span>ÜRÜN</span></>}
                     </div>}
