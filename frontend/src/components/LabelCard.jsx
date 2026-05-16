@@ -96,7 +96,7 @@ function CustomRender({ product, settings, format }) {
           const displayValue = resolveText(el.value, product)
             || (el.fieldId ? (product.custom_fields?.[el.fieldId] || '') : '');
           // Apply color rules: first matching rule wins
-          const matchRule = (el.colorRules || []).find(r => r.value && displayValue === r.value);
+          const matchRule = (el.colorRules || []).find(r => r.value && displayValue.trim().toLowerCase() === r.value.trim().toLowerCase());
           const textColor = matchRule ? matchRule.textColor : (el.color || '#0F172A');
           const textBg    = matchRule ? matchRule.bgColor   : 'transparent';
           const style = {

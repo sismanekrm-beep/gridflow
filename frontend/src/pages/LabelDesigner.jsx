@@ -1126,7 +1126,7 @@ export default function LabelDesigner() {
                 const rv = el.type==='text'
                   ? (resolve(el.value) || (el.fieldId ? (DEMO.custom_fields?.[el.fieldId] || '') : ''))
                   : '';
-                const mr = el.type==='text' ? (el.colorRules||[]).find(r=>r.value&&rv===r.value) : null;
+                const mr = el.type==='text' ? (el.colorRules||[]).find(r=>r.value&&rv.trim().toLowerCase()===r.value.trim().toLowerCase()) : null;
                 const elBg = mr ? mr.bgColor : (el.isQualityBar ? '#E5E7EB' : (el.bg||'transparent'));
                 return (
                   <div key={el.id} style={{position:'absolute',left:`${el.x*SCALE}px`,top:`${el.y*SCALE}px`,width:`${el.width*SCALE}px`,height:`${el.height*SCALE}px`,cursor:tool==='select'?'move':'default',boxSizing:'border-box',outline:isSel?'2px solid #3B82F6':'1px dashed rgba(148,163,184,0.4)',overflow:'hidden',backgroundColor:elBg,zIndex:isSel?100:2}}

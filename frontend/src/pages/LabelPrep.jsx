@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useReactToPrint } from 'react-to-print';
@@ -117,6 +117,33 @@ export default function LabelPrep() {
     setEditingFormat(null);
   };
 
+  // Fetch categories to keep color rules up-to-date in label elements
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    axios.get(`${BACKEND_URL}/api/categories`).then(r => setCategories(r.data)).catch(() => {});
+  }, []);
+
+  // Map fieldId → current colorRules from category
+  const fieldRulesMap = useMemo(() => {
+    const map = {};
+    categories.forEach(cat => {
+      (cat.fields || []).forEach(field => {
+        if (field.id) map[field.id] = field.colorRules || [];
+      });
+    });
+    return map;
+  }, [categories]);
+
+  // Enrich elements with current category color rules (overwrites stale copies)
+  const enrichElements = useCallback((elements) => {
+    if (!elements?.length) return elements;
+    return elements.map(el =>
+      el.fieldId && fieldRulesMap[el.fieldId]?.length
+        ? { ...el, colorRules: fieldRulesMap[el.fieldId] }
+        : el
+    );
+  }, [fieldRulesMap]);
+
   // When format changes, reset position mask to new size
   const labelsPerPage = (selectedFormat?.cols || 3) * (selectedFormat?.rows || 8);
   useEffect(() => {
@@ -146,8 +173,13 @@ export default function LabelPrep() {
     height: selectedLabelFormat.height,
     border_radius: labelDesign?.border_radius || 2.0,
     background: labelDesign?.background || '#FFFFFF',
-    elements: labelDesign?.elements || [],
+    elements: enrichElements(labelDesign?.elements || []),
   } : null;
+
+  const enrichedSelectedFormat = useMemo(() => {
+    if (!selectedFormat) return selectedFormat;
+    return { ...selectedFormat, elements: enrichElements(selectedFormat.elements) };
+  }, [selectedFormat, enrichElements]);
 
   useEffect(() => { localStorage.setItem('printer_mode', printerMode); }, [printerMode]);
   useEffect(() => { localStorage.setItem('label_printer_formats', JSON.stringify(labelFormats)); }, [labelFormats]);
@@ -749,7 +781,7 @@ export default function LabelPrep() {
                   items={items}
                   settings={settings}
                   positionMask={positionMask}
-                  format={selectedFormat}
+                  format={enrichedSelectedFormat}
                 />
               </div>
             </div>
