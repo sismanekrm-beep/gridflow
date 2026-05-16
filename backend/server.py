@@ -730,7 +730,8 @@ async def download_template(
         columns = [
             ("Ürün Kodu *",     "TV-PH2-150",               14, True,  None),
             ("Ölçü",            "PH2 x 150mm",              16, False, None),
-            ("Kalite / Marka",  "Stanley",                  14, False, None),
+            ("Kalite / Marka",  "A4",                       14, False, None),
+            ("DIN Kodu",        "DIN965",                   14, False, None),
             ("Açıklama",        "Phillips yildiz tornavida",26, False, None),
             ("Varsayılan Adet", "1",                        12, False, None),
             ("Barkod",          "3253560440118",            18, False, None),
@@ -831,6 +832,7 @@ async def import_products(
         "boyut / olcu": "measurement", "boyut/olcu": "measurement",
         "boyut": "measurement",
         "standart kodu": "standard_code", "standart": "standard_code",
+        "din kodu": "standard_code", "din": "standard_code",
         "kalite": "quality", "marka": "quality", "kalite / marka": "quality",
         "kalite/marka": "quality", "marka / kalite": "quality",
         "açıklama": "description", "aciklama": "description",
