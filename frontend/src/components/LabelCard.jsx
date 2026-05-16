@@ -124,7 +124,12 @@ function CustomRender({ product, settings, format }) {
             elStyle.backgroundColor = qualityColor.bg;
             style.color = qualityColor.text;
           } else if (matchRule) {
-            elStyle.backgroundColor = matchRule.bgColor || (isQualityEl ? qualityColor.bg : el.bg || 'transparent');
+            let ruleBg = matchRule.bgColor;
+            if (!ruleBg) {
+              const dqc = getQualityColor(displayValue);
+              ruleBg = dqc !== QUALITY_COLORS.default ? dqc.bg : (el.isQualityBar ? qualityColor.bg : el.bg || 'transparent');
+            }
+            elStyle.backgroundColor = ruleBg;
           } else {
             elStyle.backgroundColor = el.bg || 'transparent';
           }
