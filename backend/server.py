@@ -280,13 +280,14 @@ async def record_print(data: PrintRecordRequest, current_user = Depends(get_curr
 
 
 DEFAULT_CATEGORY_FIELDS = [
-    {"name": "Ürün Kodu", "var": "{{code}}"},
-    {"name": "Ölçü",      "var": "{{measurement}}"},
-    {"name": "Açıklama",  "var": "{{description}}"},
-    {"name": "Kalite",    "var": "{{quality}}"},
-    {"name": "Adet",      "var": "{{default_qty}}"},
-    {"name": "Barkod No", "var": "{{barcode}}"},
-    {"name": "Tarih",     "var": "{{print_date}}"},
+    {"name": "Ürün Kodu",    "var": "{{code}}"},
+    {"name": "Ölçü",         "var": "{{measurement}}"},
+    {"name": "Açıklama",     "var": "{{description}}"},
+    {"name": "Kalite",       "var": "{{quality}}"},
+    {"name": "DIN Kodu",     "var": "{{standard_code}}"},
+    {"name": "Adet",         "var": "{{default_qty}}"},
+    {"name": "Barkod No",    "var": "{{barcode}}"},
+    {"name": "Tarih",        "var": "{{print_date}}"},
 ]
 
 class CategoryCreate(BaseModel):
