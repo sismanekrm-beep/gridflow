@@ -297,8 +297,14 @@ export default function LabelPrep() {
   const fetchSuggestions = useCallback(async (q) => {
     if (!q || q.length < 1) { setSuggestions([]); setShowSuggestions(false); return; }
     try {
-      const res = await axios.get(`${BACKEND_URL}/api/products?query=${encodeURIComponent(q)}&limit=7`);
-      setSuggestions(res.data.products || []);
+      const res = await axios.get(`${BACKEND_URL}/api/products?query=${encodeURIComponent(q)}&limit=12`);
+      const upper = q.trim().toUpperCase();
+      const scored = (res.data.products || []).map(p => {
+        const c = p.code.toUpperCase();
+        return { ...p, _s: c === upper ? 0 : c.startsWith(upper) ? 1 : 2 };
+      });
+      scored.sort((a, b) => a._s - b._s);
+      setSuggestions(scored.slice(0, 7).map(({ _s, ...rest }) => rest));
       setShowSuggestions(true);
     } catch { setSuggestions([]); }
   }, []);

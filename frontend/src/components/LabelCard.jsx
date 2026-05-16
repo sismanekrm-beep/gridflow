@@ -126,8 +126,8 @@ function CustomRender({ product, settings, format }) {
           } else if (matchRule) {
             let ruleBg = matchRule.bgColor;
             if (!ruleBg) {
-              const dqc = getQualityColor(displayValue);
-              ruleBg = dqc !== QUALITY_COLORS.default ? dqc.bg : (el.isQualityBar ? qualityColor.bg : el.bg || 'transparent');
+              // Use the product's quality color (not displayValue — avoids false match on codes like A496502016)
+              ruleBg = isQualityEl ? qualityColor.bg : (el.bg || 'transparent');
             }
             elStyle.backgroundColor = ruleBg;
           } else {
