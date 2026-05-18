@@ -941,6 +941,15 @@ async def import_products(
         }
         if category:
             pdata["category_id"] = category["id"]
+        # standard_code değerini, kategoride aynı isimli custom alana da yaz
+        # ({{standard_code}} var'ı olmayan eski kategoriler için)
+        std_code_val = pdata.get("standard_code")
+        if std_code_val and category:
+            _din_names = {"din kodu", "standart kodu", "standart", "din"}
+            for _f in (category.get("fields") or []):
+                _f_var = _f.get("var", "")
+                if _f["name"].lower() in _din_names and _VAR_TO_FIELD.get(_f_var) != "standard_code":
+                    custom_fields[_f["id"]] = std_code_val
         if custom_fields:
             pdata["custom_fields"] = custom_fields
 

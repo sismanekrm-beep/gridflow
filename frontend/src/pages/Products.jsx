@@ -236,7 +236,7 @@ export default function Products() {
   // Tablo için: filtreli kategori ve onun dinamik sütunları
   const selectedFilterCat = categories.find(c => c.id === filterCategoryId);
   const dynamicCols = (() => {
-    const skip = v => VAR_TO_KEY[v] === '__date__' || VAR_TO_KEY[v] === 'code' || VAR_TO_KEY[v] === 'standard_code';
+    const skip = v => VAR_TO_KEY[v] === '__date__' || VAR_TO_KEY[v] === 'code';
     if (selectedFilterCat) {
       // Tek kategori seçili: o kategorinin alanları
       return (selectedFilterCat.fields || []).filter(f => !skip(f.var));
