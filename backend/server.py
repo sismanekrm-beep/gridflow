@@ -125,7 +125,11 @@ async def register(data: UserRegister):
 async def login(data: UserLogin):
     email = data.email.lower().strip()
     user = await db.users.find_one({"email": email})
-    if not user or not pwd_context.verify(data.password, user.get("password_hash", "")):
+    if not user:
+        raise HTTPException(401, "E-posta veya şifre hatalı")
+    if user.get("auth_provider") == "google" and not user.get("password_hash"):
+        raise HTTPException(401, "Bu hesap Google ile oluşturulmuş. Lütfen 'Google ile Devam Et' butonunu kullanın.")
+    if not pwd_context.verify(data.password, user.get("password_hash", "")):
         raise HTTPException(401, "E-posta veya şifre hatalı")
     user.pop("_id", None); user.pop("password_hash", None)
     token = create_token({"user_id": user["id"], "is_premium": user.get("is_premium", False)})
